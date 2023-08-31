@@ -1,0 +1,16 @@
+version: '3'
+networks:
+  app-tier:
+    driver: bridge
+services:
+  fastapiapp:
+    container_name: supervisor-fastapi
+    # Build the Dockerfile that is in the api directory
+    build: 
+      context: ./api
+      dockerfile: ./Dockerfile
+    ports:
+      - "8000:8000"
+    entrypoint: ["sh", "/home/fastapi/app/api/prod.sh"]
+    networks:
+      - app-tier
